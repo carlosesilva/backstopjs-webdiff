@@ -41,16 +41,19 @@ backstopConfig.scenarios = paths.map(path => {
 // Initialize backstop promise chain
 const backstopChain = Promise.resolve();
 
-// Create references
-if (!options["skip-reference"]) {
-  backstopChain
-    .then(() => backstop("reference", { config: backstopConfig }))
-    .catch(utils.handleError);
-}
-
-// Run test
-if (!options["skip-test"]) {
-  backstopChain
-    .then(() => backstop("test", { config: backstopConfig }))
-    .catch(utils.handleError);
-}
+backstopChain
+  .then(() => {
+    // Create references
+    if (!options["skip-reference"]) {
+      return backstop("reference", { config: backstopConfig });
+    }
+    return;
+  })
+  .then(() => {
+    // Run tests
+    if (!options["skip-test"]) {
+      return backstop("test", { config: backstopConfig });
+    }
+    return;
+  })
+  .catch(utils.handleError);
