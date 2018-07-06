@@ -3,15 +3,25 @@ const backstop = require("backstopjs");
 const options = require("./lib/cli-arguments");
 const utils = require("./lib/utils");
 
-// Parse environment urls.
-const referenceEnv = utils.sanitizeEnvUrl(options["reference-env"]);
-const testEnv = utils.sanitizeEnvUrl(options["test-env"]);
+// Initialize variables
+let referenceEnv = "",
+  testEnv = "",
+  headers = {};
 
-// Validate env urls.
-if (!referenceEnv || !testEnv) {
-  utils.handleError(
-    "Please make sure to provide valid urls for --reference-env and --test-env"
-  );
+// Parse environment urls.
+if (!options["skip-reference"]) {
+  referenceEnv = utils.sanitizeEnvUrl(options["reference-env"]);
+  if (!referenceEnv) {
+    utils.handleError(
+      "Please make sure to provide valid urls for --reference-env"
+    );
+  }
+}
+if (!options["skip-test"]) {
+  testEnv = utils.sanitizeEnvUrl(options["test-env"]);
+  if (!testEnv) {
+    utils.handleError("Please make sure to provide valid urls for --test-env");
+  }
 }
 
 // Read Backstop config file.
@@ -25,7 +35,6 @@ if (!backstopConfig || !backstopConfig.defaultScenario) {
 }
 
 // Add extra headers if a headers file is specified.
-let headers = false;
 if (options["headers"]) {
   // Parse json file.
   const headersJSON = JSON.parse(fs.readFileSync(options["headers"]));
