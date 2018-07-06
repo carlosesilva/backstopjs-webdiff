@@ -89,9 +89,9 @@ You can add customizations to the `defaultScenario` object and that will apply t
 }
 ```
 
-## Setting request headers
+## Setting custom request headers
 
-It is possible to customize the headers sent with each page request. To do so, create a `headers.json` file like this:
+It is possible to send custom headers with each page request. To do so, create a `headers.json` file like this:
 
 ```
 {
