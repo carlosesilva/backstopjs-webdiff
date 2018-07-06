@@ -20,30 +20,45 @@ BackstopJS script to read a list urls from `.txt` file and compare them across 2
     ```
     $ npm install
     ```
+1.  Now create a `urls.txt` file with the urls that you want to test like this:
+
+    ```
+    https://www.example.com/
+    https://www.example.com/about/
+    https://www.example.com/gallery/
+    https://www.example.com/contact/
+    ```
 
 ## How to use
 
-1.  Run program
+### Scenario #1: Comparing 2 different environments
 
-    ```
-    $ node compare.js --reference-env 'http://www.example.com' --test-env 'http://staging.example.com' --urls /path/to/urls.txt
-    ```
+This method is useful to compare pages across 2 different environments such as: Prod vs Staging, Prod vs Sandbox, etc.
 
-    Where `urls.txt` is a list of urls like this:
+```
+$ node compare.js --reference-env 'https://www.example.com' --test-env 'https://staging.example.com' --urls /path/to/urls.txt
+```
 
-    ```
-    http://www.example.com/
-    http://www.example.com/about/
-    http://www.example.com/gallery/
-    http://www.example.com/contact/
-    ```
+Given the `urls.txt` example given above, this will compare the following screenshots:
 
-    This will compare the following screenshots:
+- `https://www.example.com/` vs `https://staging.example.com/`
+- `https://www.example.com/about/` vs `https://staging.example.com/about/`
+- `https://www.example.com/gallery/` vs `https://staging.example.com/gallery/`
+- `https://www.example.com/contact/` vs `https://staging.example.com/contact/`
 
-    - `http://www.example.com/` vs `http://staging.example.com/`
-    - `http://www.example.com/about/` vs `http://staging.example.com/about/`
-    - `http://www.example.com/gallery/` vs `http://staging.example.com/gallery/`
-    - `http://www.example.com/contact/` vs `http://staging.example.com/contact/`
+### Scenario #2: Comparing a single environment before and after a change.
+
+This method is useful to check if a change, such as a server update or a 3rd party library update, caused any unexpected visual changes to your website. First you take reference screenshots by running:
+
+```
+$ node compare.js --reference-env 'https://www.example.com' --skip-test --urls /path/to/urls.txt
+```
+
+You would now make the changes that you want to test and then you would take the test the screenshots by running:
+
+```
+$ node compare.js --test-env 'https://www.example.com' --skip-reference --urls /path/to/urls.txt
+```
 
 ## Customizing BackstopJS
 
@@ -104,8 +119,8 @@ It is possible to send custom headers with each page request. To do so, create a
 And point to it using the `--headers` parameter:
 
 ```
-    node compare.js --reference-env 'http://www.example.com' \
-    --test-env 'http://staging.example.com' \
+    node compare.js --reference-env 'https://www.example.com' \
+    --test-env 'https://staging.example.com' \
     --urls /path/to/urls.txt \
     --headers /path/to/headers.json
 ```
