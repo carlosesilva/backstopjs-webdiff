@@ -101,8 +101,11 @@ It is possible to customize the headers sent with each page request. To do so, c
 }
 ```
 
-And point to it using the `--extra-headers` parameter:
+And point to it using the `--headers` parameter:
 
 ```
-    node compare.js --reference-env 'http://www.example.com' --test-env 'http://staging.example.com' --urls /path/to/urls.txt --extra-headers /path/to/headers.json
+    node compare.js --reference-env 'http://www.example.com' \
+    --test-env 'http://staging.example.com' \
+    --urls /path/to/urls.txt \
+    --headers /path/to/headers.json
 ```

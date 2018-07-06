@@ -26,9 +26,9 @@ if (!backstopConfig || !backstopConfig.defaultScenario) {
 
 // Add extra headers if a headers file is specified.
 let headers = false;
-if (options["extra-headers"]) {
+if (options["headers"]) {
   // Parse json file.
-  const headersJSON = JSON.parse(fs.readFileSync(options["extra-headers"]));
+  const headersJSON = JSON.parse(fs.readFileSync(options["headers"]));
 
   if (headersJSON) {
     headers = headersJSON;
@@ -36,7 +36,7 @@ if (options["extra-headers"]) {
     if (!backstopConfig.onBeforeScript) {
       backstopConfig.onBeforeScript = "onBefore.js";
     } else {
-      utils.handleError(`You specified the --extra-headers parameter but your backstop.json config file already has onBeforeScript defined. 
+      utils.handleError(`You specified the --headers parameter but your backstop.json config file already has onBeforeScript defined. 
 Require the setHeaders.js script in your custom onBefore script.`);
     }
   }
