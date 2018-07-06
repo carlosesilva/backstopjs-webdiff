@@ -39,7 +39,7 @@ This method is useful to compare pages across 2 different environments such as: 
 $ node compare.js --reference-env 'https://www.example.com' --test-env 'https://staging.example.com' --urls /path/to/urls.txt
 ```
 
-Given the `urls.txt` example given above, this will compare the following screenshots:
+Given the `urls.txt` example above, this will compare the following screenshots:
 
 - `https://www.example.com/` vs `https://staging.example.com/`
 - `https://www.example.com/about/` vs `https://staging.example.com/about/`
@@ -62,6 +62,13 @@ This method is useful to check if a change, such as a server update or a 3rd par
     ```
     $ node compare.js --test-env 'https://www.example.com' --skip-reference --urls /path/to/urls.txt
     ```
+
+Given the `urls.txt` example above, this will compare the following screenshots:
+
+- `https://www.example.com/`(before) vs `https://example.com/`(after)
+- `https://www.example.com/about/`(before) vs `https://example.com/about/`(after)
+- `https://www.example.com/gallery/`(before) vs `https://example.com/gallery/`(after)
+- `https://www.example.com/contact/`(before) vs `https://example.com/contact/`(after)
 
 ## Customizing BackstopJS
 
