@@ -1,6 +1,6 @@
 # backstopjs-webdiff
 
-BackstopJS script to read a list urls from `.txt` file and compare them across 2 different environments.
+Wrapper script around BackstopJS to read a list urls from a `.txt` file and compare them across 2 environments in a single command.
 
 ## Requirements
 
