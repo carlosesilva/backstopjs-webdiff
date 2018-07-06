@@ -48,17 +48,20 @@ Given the `urls.txt` example given above, this will compare the following screen
 
 ### Scenario #2: Comparing a single environment before and after a change.
 
-This method is useful to check if a change, such as a server update or a 3rd party library update, caused any unexpected visual changes to your website. First you take reference screenshots by running:
+This method is useful to check if a change, such as a server update or a 3rd party library update, caused any unexpected visual changes to your website.
 
-```
-$ node compare.js --reference-env 'https://www.example.com' --skip-test --urls /path/to/urls.txt
-```
+1.  First you take the reference screenshots:
 
-You would now make the changes that you want to test and then you would take the test the screenshots by running:
+    ```
+    $ node compare.js --reference-env 'https://www.example.com' --skip-test --urls /path/to/urls.txt
+    ```
 
-```
-$ node compare.js --test-env 'https://www.example.com' --skip-reference --urls /path/to/urls.txt
-```
+2.  Make the changes that you want to test
+3.  Then you would take the test screenshots by running:
+
+    ```
+    $ node compare.js --test-env 'https://www.example.com' --skip-reference --urls /path/to/urls.txt
+    ```
 
 ## Customizing BackstopJS
 
