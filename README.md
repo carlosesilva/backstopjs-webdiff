@@ -88,3 +88,21 @@ You can add customizations to the `defaultScenario` object and that will apply t
 ...
 }
 ```
+
+## Setting request headers
+
+It is possible to customize the headers sent with each page request. To do so, create a `headers.json` file like this:
+
+```
+{
+    "custom-header-1": "value1",
+    "custom-header-2": "value2"
+    ...
+}
+```
+
+And point to it using the `--extra-headers` parameter:
+
+```
+    node compare.js --reference-env 'http://www.example.com' --test-env 'http://staging.example.com' --urls /path/to/urls.txt --extra-headers /path/to/headers.json
+```
