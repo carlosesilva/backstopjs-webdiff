@@ -24,6 +24,24 @@ if (!backstopConfig || !backstopConfig.defaultScenario) {
   );
 }
 
+// Add extra headers if a headers file is specified.
+let headers = false;
+if (options["extra-headers"]) {
+  // Parse json file.
+  const headersJSON = JSON.parse(fs.readFileSync(options["extra-headers"]));
+
+  if (headersJSON) {
+    headers = headersJSON;
+    // Specify the onBeforeScript to run so that it will add the headers on each page request.
+    if (!backstopConfig.onBeforeScript) {
+      backstopConfig.onBeforeScript = "onBefore.js";
+    } else {
+      utils.handleError(`You specified the --extra-headers parameter but your backstop.json config file already has onBeforeScript defined. 
+Require the setHeaders.js script in your custom onBefore script.`);
+    }
+  }
+}
+
 // Read urls paths from provided file
 const urls = utils.readUrls(options.urls, true);
 const paths = urls.map(utils.getPagePath);
@@ -34,7 +52,8 @@ backstopConfig.scenarios = paths.map(path => {
     backstopConfig.defaultScenario,
     path,
     testEnv,
-    referenceEnv
+    referenceEnv,
+    headers
   );
 });
 
