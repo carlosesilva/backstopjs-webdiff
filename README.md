@@ -1,54 +1,59 @@
 # backstopjs-webdiff
+
 BackstopJS script to read a list urls from `.txt` file and compare them across 2 different environments.
 
 ## Requirements
 
 - NodeJS v8.3+
- 
+
 ## Install
 
-1. Clone the repo
+1.  Clone the repo
     ```
     $ git clone <repo url>
     ```
-1. cd into repo directory
+1.  cd into repo directory
     ```
     $ cd /path/to/repo
     ```
-1. Install dependencies
+1.  Install dependencies
     ```
     $ npm install
     ```
 
 ## How to use
 
-1. Run program
+1.  Run program
+
     ```
     $ node compare.js --reference-env 'http://www.example.com' --test-env 'http://staging.example.com' --urls /path/to/urls.txt
     ```
+
     Where `urls.txt` is a list of urls like this:
-    
+
     ```
     http://www.example.com/
     http://www.example.com/about/
     http://www.example.com/gallery/
     http://www.example.com/contact/
     ```
+
     This will compare the following screenshots:
+
     - `http://www.example.com/` vs `http://staging.example.com/`
     - `http://www.example.com/about/` vs `http://staging.example.com/about/`
     - `http://www.example.com/gallery/` vs `http://staging.example.com/gallery/`
     - `http://www.example.com/contact/` vs `http://staging.example.com/contact/`
 
-
 ## Customizing BackstopJS
 
-We are using [BackstopJS](https://github.com/garris/BackstopJS) here in a pretty vanilla way 
+We are using [BackstopJS](https://github.com/garris/BackstopJS) here in a pretty vanilla way
 so you can change any settings you want in `backstop.json`. Read their docs for more information about that.
 
 The only requirement is that there is a `defaultScenario` object in your `backstop.json` so that we can generate the scenarios on the fly using the `defaultScenario` settings.
 
 For example:
+
 ```
 {
 ...
@@ -82,4 +87,25 @@ You can add customizations to the `defaultScenario` object and that will apply t
   }
 ...
 }
+```
+
+## Setting custom request headers
+
+It is possible to send custom headers with each page request. To do so, create a `headers.json` file like this:
+
+```
+{
+    "custom-header-1": "value1",
+    "custom-header-2": "value2"
+    ...
+}
+```
+
+And point to it using the `--headers` parameter:
+
+```
+    node compare.js --reference-env 'http://www.example.com' \
+    --test-env 'http://staging.example.com' \
+    --urls /path/to/urls.txt \
+    --headers /path/to/headers.json
 ```
