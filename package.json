@@ -9,8 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "backstopjs": "^3.2.19",
+    "backstopjs": "^3.8.5",
     "command-line-args": "^5.0.2",
-    "command-line-usage": "^5.0.3"
+    "command-line-usage": "^5.0.5"
   }
 }
